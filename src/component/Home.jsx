@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Exmployees from "./Employees";
+import { Link } from "react-router-dom";
 
 class Home extends Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class Home extends Component {
     return (
       <div>
         <h2 className="text-center">Home</h2>
-        <Exmployees />
+        <Link to={"employees"}>Employees</Link>
       </div>
     );
   }
