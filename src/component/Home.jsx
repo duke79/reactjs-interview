@@ -1,15 +1,19 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
+import Exmployees from "./Employees";
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-    constructor(props) {
-        super(props);
-    }
-  
-    render() {
-        return ( <h2 className="text-center">Home</h2>);
-    }
-
+  render() {
+    return (
+      <div>
+        <h2 className="text-center">Home</h2>
+        <Exmployees />
+      </div>
+    );
+  }
 }
 
 export default Home;
