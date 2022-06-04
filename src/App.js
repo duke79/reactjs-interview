@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Home from "./component/Home";
 import Exmployees from "./component/employees/Employees";
+import AddEditEmployee from './component/employees/AddEditEmployee';
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
           <Routes>
             <Route path="/" exact element={<Home />} />
             <Route path="/employees" exact element={<Exmployees />} />
-            <Route path="/employees/add" exact element={"<Exmployees />"} />
+            <Route path="/employees/add" exact element={<AddEditEmployee />} />
           </Routes>
         </div>
       </Router>

@@ -1,5 +1,12 @@
 export const getEmployees = () => {
-  return JSON.parse(localStorage.getItem("employees", [])) || [];
+  return JSON.parse(localStorage.getItem("employees", [])) || [{
+    firstName: 'Something',
+    lastName: 'Something',
+    dob: 'Something',
+    designation: 'Something',
+    profilePic: 'Something',
+    experience: 'Something',
+  }];
 };
 
 export const setEmployees = (employees) => {
