@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Button } from "react-bootstrap";
-import { addEmployee } from "./data";
-import { useNavigate } from "react-router-dom";
+import { addEmployee, getEmployeeById, editEmployee } from "./data";
+import { useNavigate, useParams } from "react-router-dom";
 
 const AddEditEmployee = ({
   initialData = {
@@ -15,16 +15,28 @@ const AddEditEmployee = ({
 }) => {
   const [values, setValues] = React.useState(initialData);
   const navigate = useNavigate();
+  const params = useParams();
+
+  React.useEffect(() => {
+    if (params.id) {
+      const employee = getEmployeeById(params.id);
+      setValues(employee);
+    }
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addEmployee(values);
+    if (values.id) {
+      editEmployee(values);
+    } else {
+      addEmployee(values);
+    }
     navigate("/employees", { replace: true });
   };
 
   return (
     <div>
-      <h2>{initialData ? "Edit Employee" : "Add Employee"}</h2>
+      <h2>{values.id ? "Edit Employee" : "Add Employee"}</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="firstName">
           <Form.Label>First Name</Form.Label>

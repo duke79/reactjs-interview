@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export const getEmployees = () => {
   return JSON.parse(localStorage.getItem("employees", [])) || [{
     firstName: 'Something',
@@ -9,20 +11,26 @@ export const getEmployees = () => {
   }];
 };
 
+export const getEmployeeById = (id) => {
+  const employees = getEmployees();
+  return employees.find(el => el.id === id);
+};
+
 export const setEmployees = (employees) => {
   localStorage.setItem("employees", JSON.stringify(employees));
 };
 
 export const addEmployee = ({
-  firstName,
-  lastName,
-  dob,
-  designation,
-  profilePic,
-  experience,
+  firstName = '',
+  lastName = '',
+  dob = '',
+  designation = '',
+  profilePic = '',
+  experience = '',
 }) => {
   const employees = getEmployees();
   employees.push({
+    id: uuidv4(),
     firstName,
     lastName,
     dob,

@@ -1,29 +1,27 @@
 import React from "react";
 import { Button, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { columns } from "./constants";
-import { getEmployees } from "./data";
+import { columns, columnKeys } from "./constants";
+import { getEmployees, removeEmployee } from "./data";
 
 const Exmployees = () => {
   const [data, setData] = React.useState(getEmployees());
-  // const data = [
-  //   {
-  //     firstName: "Something",
-  //     lastName: "Something",
-  //     dob: "Something",
-  //     designation: "Something",
-  //     profilePic: "Something",
-  //     experience: "Something",
-  //   },
-  // ];
+
+  const handleDelete = (id) => {
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm('Are you sure you want to delete?')) {
+      removeEmployee(id);
+      setData(getEmployees());
+    }
+  };
 
   return (
     <div>
       <Table striped bordered hover>
         <thead>
           <tr>
-            {columns.map((col) => {
-              return <th>{col.title}</th>;
+            {columnKeys.map((colKey) => {
+              return <th>{columns[colKey]}</th>;
             })}
           </tr>
         </thead>
@@ -31,9 +29,22 @@ const Exmployees = () => {
           {data.map((row) => {
             return (
               <tr>
-                {Object.keys(row).map((colKey) => {
+                {columnKeys.map((colKey) => {
+                  if (colKey === "profilePic") {
+                    return (
+                      <td>
+                        <img src={row[colKey]} height="100px" />
+                      </td>
+                    );
+                  }
                   return <td>{row[colKey]}</td>;
                 })}
+                <td>
+                  <Link to={"/employees/edit/" + row.id}>
+                    <Button variant="success">Edit</Button>
+                  </Link>
+                  <Button variant="danger" onClick={() => handleDelete(row.id)}>Delete</Button>
+                </td>
               </tr>
             );
           })}
